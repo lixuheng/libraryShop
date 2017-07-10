@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bewweb.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="cn.bewweb.entities.User">
+		<id column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="uname" property="uname" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="CHAR" />
+		<result column="rname" property="rname" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="birth_city" property="birthCity" jdbcType="VARCHAR" />
+		<result column="id_card" property="idCard" jdbcType="CHAR" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="now_city" property="nowCity" jdbcType="VARCHAR" />
+		<result column="academic_degree" property="academicDegree"
+			jdbcType="VARCHAR" />
+		<result column="sum_mark" property="sumMark" jdbcType="INTEGER" />
+		<result column="degree" property="degree" jdbcType="INTEGER" />
+		<result column="regist_day" property="registDay" jdbcType="DATE" />
+		<result column="state" property="state" jdbcType="CHAR" />
+		<result column="debit_card" property="debitCard" jdbcType="VARCHAR" />
+		<result column="online_state" property="onlineState" jdbcType="CHAR" />
+		<result column="max_pwd_error_times" property="maxPwdErrorTimes"
+			jdbcType="INTEGER" />
+		<result column="max_borrow_number" property="maxBorrowNumber"
+			jdbcType="INTEGER" />
+		<result column="max_borrow_time" property="maxBorrowTime"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="cn.bewweb.entities.User"
+		extends="BaseResultMap">
+		<result column="mycare" property="mycare" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_id, uname, password, sex, rname, phone, email,
+		birth_city, id_card,
+		birthday,
+		now_city, academic_degree, sum_mark,
+		degree, regist_day, state, debit_card,
+		online_state,
+		max_pwd_error_times, max_borrow_number, max_borrow_time
+	</sql>
+	<sql id="Blob_Column_List">
+		mycare
+	</sql>
+
+	<!-- SELECT -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from usr_user
+		where user_id = #{userId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="selectPwdByUserId" resultType="java.lang.String"
+		parameterType="java.lang.Long">
+		select
+		password  
+		from usr_user 
+		where user_id = #{userId,jdbcType=BIGINT}
+	</select>
+	
+	
+	<select id="selectPhoneByUser"  resultType="java.lang.String"
+		parameterType="cn.bewweb.entities.User" >
+		select 
+		phone 
+		from usr_user 
+		where user_id = #{userId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="selectMyCareByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select user_id ,uname,  mycare 
+		from usr_user
+		where user_id = #{userId,jdbcType=BIGINT}
+	</select>
+	
+
+	<select id="find" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from usr_user
+		<where>
+			<if test="param1 != null and  param1.userId != null">
+				user_id= #{param1.userId}
+			</if>
+			<if test="param1 != null and  param1.uname != null">
+				and uname= #{param1.uname}
+			</if>
+			<if test="param1 != null and  param1.password != null">
+				and password= #{param1.password}
+			</if>
+			<if test="param1 != null and  param1.sex != null">
+				and sex= #{param1.sex}
+			</if>
+			<if test="param1 != null and  param1.rname != null">
+				and rname= #{param1.rname}
+			</if>
+			<if test="param1 != null and  param1.phone != null">
+				and phone= #{param1.phone}
+			</if>
+			<if test="param1 != null and  param1.email != null">
+				and email= #{param1.email}
+			</if>
+			<if test="param1 != null and  param1.birthCity != null">
+				and birth_city= #{param1.birthCity}
+			</if>
+			<if test="param1 != null and  param1.idCard != null">
+				and id_card= #{param1.idCard}
+			</if>
+			<if test="param1 != null and  param1.birthday != null">
+				and birthday= #{param1.birthday}
+			</if>
+			<if test="param1 != null and  param1.nowCity != null">
+				and now_city= #{param1.nowCity}
+			</if>
+			<if test="param1 != null and  param1.academicDegree != null">
+				and academic_degree= #{param1.academicDegree}
+			</if>
+			<if test="param1 != null and  param1.sumMark != null">
+				and sum_mark= #{param1.sumMark}
+			</if>
+			<if test="param1 != null and  param1.degree != null">
+				and degree= #{param1.degree}
+			</if>
+			<if test="param1 != null and  param1.registDay != null">
+				and regist_day= #{param1.registDay}
+			</if>
+			<if test="param1 != null and  param1.state != null">
+				and state= #{param1.state}
+			</if>
+			<if test="param1 != null and  param1.debitCard != null">
+				and debit_card= #{param1.debitCard}
+			</if>
+			<if test="param1 != null and  param1.onlineState != null">
+				and online_state= #{param1.onlineState}
+			</if>
+			<if test="param1 != null and  param1.maxPwdErrorTimes != null">
+				and max_pwd_error_times= #{param1.maxPwdErrorTimes}
+			</if>
+			<if test="param1 != null and  param1.maxBorrowNumber != null">
+				and max_borrow_number= #{param1.maxBorrowNumber}
+			</if>
+			<if test="param1 != null and  param1.maxBorrowTime != null">
+				and max_borrow_time= #{param1.maxBorrowTime}
+			</if>
+			<if test="param1 != null and  param1.mycare != null">
+				and mycare= #{param1.mycare}
+			</if>
+		</where>
+		limit #{1},#{2}
+	</select>
+	
+	
+	<select id="findAndOrderBy" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from usr_user
+		<where>
+			<if test="param1 != null and  param1.userId != null">
+				user_id= #{param1.userId}
+			</if>
+			<if test="param1 != null and  param1.uname != null">
+				and uname= #{param1.uname}
+			</if>
+			<if test="param1 != null and  param1.password != null">
+				and password= #{param1.password}
+			</if>
+			<if test="param1 != null and  param1.sex != null">
+				and sex= #{param1.sex}
+			</if>
+			<if test="param1 != null and  param1.rname != null">
+				and rname= #{param1.rname}
+			</if>
+			<if test="param1 != null and  param1.phone != null">
+				and phone= #{param1.phone}
+			</if>
+			<if test="param1 != null and  param1.email != null">
+				and email= #{param1.email}
+			</if>
+			<if test="param1 != null and  param1.birthCity != null">
+				and birth_city= #{param1.birthCity}
+			</if>
+			<if test="param1 != null and  param1.idCard != null">
+				and id_card= #{param1.idCard}
+			</if>
+			<if test="param1 != null and  param1.birthday != null">
+				and birthday= #{param1.birthday}
+			</if>
+			<if test="param1 != null and  param1.nowCity != null">
+				and now_city= #{param1.nowCity}
+			</if>
+			<if test="param1 != null and  param1.academicDegree != null">
+				and academic_degree= #{param1.academicDegree}
+			</if>
+			<if test="param1 != null and  param1.sumMark != null">
+				and sum_mark= #{param1.sumMark}
+			</if>
+			<if test="param1 != null and  param1.degree != null">
+				and degree= #{param1.degree}
+			</if>
+			<if test="param1 != null and  param1.registDay != null">
+				and regist_day= #{param1.registDay}
+			</if>
+			<if test="param1 != null and  param1.state != null">
+				and state= #{param1.state}
+			</if>
+			<if test="param1 != null and  param1.debitCard != null">
+				and debit_card= #{param1.debitCard}
+			</if>
+			<if test="param1 != null and  param1.onlineState != null">
+				and online_state= #{param1.onlineState}
+			</if>
+			<if test="param1 != null and  param1.maxPwdErrorTimes != null">
+				and max_pwd_error_times= #{param1.maxPwdErrorTimes}
+			</if>
+			<if test="param1 != null and  param1.maxBorrowNumber != null">
+				and max_borrow_number= #{param1.maxBorrowNumber}
+			</if>
+			<if test="param1 != null and  param1.maxBorrowTime != null">
+				and max_borrow_time= #{param1.maxBorrowTime}
+			</if>
+			<if test="param1 != null and  param1.mycare != null">
+				and mycare= #{param1.mycare}
+			</if>
+		</where> 
+		order by #{1} 
+		limit #{2},#{3}
+	</select>
+
+	<select id="selectPhoneByPhone" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select phone from usr_user where phone =
+		#{phone,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectUnameByUname" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select uname from usr_user where uname =
+		#{uname,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectEmailByEmail" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select email from usr_user where email =
+		#{email,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectUsersByRname" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from usr_user
+		where rname = #{rname,jdbcType=VARCHAR}
+	</select>
+
+	<!-- User selectUserByEmail(String email); -->
+	<select id="selectUserByEmail" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		user_id,uname,password,email,phone,sex,state,online_state,birthday,degree
+		from usr_user where email = #{email,jdbcType=VARCHAR}
+	</select>
+	<!-- User selectUserByPhone(String phone); -->
+	<select id="selectUserByPhone" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		user_id,uname,password,email,phone,sex,state,online_state,birthday,degree
+		from
+		usr_user where phone = #{phone,jdbcType=VARCHAR}
+	</select>
+	<!-- User selectUserByUname(String uname); -->
+	<select id="selectUserByUname" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		user_id,uname,password,email,phone,sex,state,online_state,birthday,degree
+		from
+		usr_user where uname = #{uname,jdbcType=VARCHAR}
+	</select>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		usr_user
+		where user_id = #{userId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="cn.bewweb.entities.User">
+		insert into usr_user (user_id,
+		uname, password,
+		sex, rname, phone, email,
+		birth_city, id_card,
+		birthday,
+		now_city, academic_degree, sum_mark,
+		degree, regist_day,
+		state,
+		debit_card, online_state, max_pwd_error_times,
+		max_borrow_number, max_borrow_time, mycare
+		)
+		values
+		(#{userId,jdbcType=BIGINT}, #{uname,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{sex,jdbcType=CHAR},
+		#{rname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{birthCity,jdbcType=VARCHAR},
+		#{idCard,jdbcType=CHAR}, #{birthday,jdbcType=DATE},
+		#{nowCity,jdbcType=VARCHAR}, #{academicDegree,jdbcType=VARCHAR},
+		#{sumMark,jdbcType=INTEGER},
+		#{degree,jdbcType=INTEGER},
+		#{registDay,jdbcType=DATE}, #{state,jdbcType=CHAR},
+		#{debitCard,jdbcType=VARCHAR}, #{onlineState,jdbcType=CHAR},
+		#{maxPwdErrorTimes,jdbcType=INTEGER},
+		#{maxBorrowNumber,jdbcType=INTEGER},
+		#{maxBorrowTime,jdbcType=INTEGER}, #{mycare,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="cn.bewweb.entities.User">
+		insert into usr_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="uname != null">
+				uname,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="rname != null">
+				rname,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="birthCity != null">
+				birth_city,
+			</if>
+			<if test="idCard != null">
+				id_card,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="nowCity != null">
+				now_city,
+			</if>
+			<if test="academicDegree != null">
+				academic_degree,
+			</if>
+			<if test="sumMark != null">
+				sum_mark,
+			</if>
+			<if test="degree != null">
+				degree,
+			</if>
+			<if test="registDay != null">
+				regist_day,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="debitCard != null">
+				debit_card,
+			</if>
+			<if test="onlineState != null">
+				online_state,
+			</if>
+			<if test="maxPwdErrorTimes != null">
+				max_pwd_error_times,
+			</if>
+			<if test="maxBorrowNumber != null">
+				max_borrow_number,
+			</if>
+			<if test="maxBorrowTime != null">
+				max_borrow_time,
+			</if>
+			<if test="mycare != null">
+				mycare,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="uname != null">
+				#{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=CHAR},
+			</if>
+			<if test="rname != null">
+				#{rname,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="birthCity != null">
+				#{birthCity,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null">
+				#{idCard,jdbcType=CHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="nowCity != null">
+				#{nowCity,jdbcType=VARCHAR},
+			</if>
+			<if test="academicDegree != null">
+				#{academicDegree,jdbcType=VARCHAR},
+			</if>
+			<if test="sumMark != null">
+				#{sumMark,jdbcType=INTEGER},
+			</if>
+			<if test="degree != null">
+				#{degree,jdbcType=INTEGER},
+			</if>
+			<if test="registDay != null">
+				#{registDay,jdbcType=DATE},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR},
+			</if>
+			<if test="debitCard != null">
+				#{debitCard,jdbcType=VARCHAR},
+			</if>
+			<if test="onlineState != null">
+				#{onlineState,jdbcType=CHAR},
+			</if>
+			<if test="maxPwdErrorTimes != null">
+				#{maxPwdErrorTimes,jdbcType=INTEGER},
+			</if>
+			<if test="maxBorrowNumber != null">
+				#{maxBorrowNumber,jdbcType=INTEGER},
+			</if>
+			<if test="maxBorrowTime != null">
+				#{maxBorrowTime,jdbcType=INTEGER},
+			</if>
+			<if test="mycare != null">
+				#{mycare,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.bewweb.entities.User">
+		update usr_user
+		<set>
+			<if test="uname != null">
+				uname = #{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=CHAR},
+			</if>
+			<if test="rname != null">
+				rname = #{rname,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="birthCity != null">
+				birth_city = #{birthCity,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null">
+				id_card = #{idCard,jdbcType=CHAR},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="nowCity != null">
+				now_city = #{nowCity,jdbcType=VARCHAR},
+			</if>
+			<if test="academicDegree != null">
+				academic_degree = #{academicDegree,jdbcType=VARCHAR},
+			</if>
+			<if test="sumMark != null">
+				sum_mark = #{sumMark,jdbcType=INTEGER},
+			</if>
+			<if test="degree != null">
+				degree = #{degree,jdbcType=INTEGER},
+			</if>
+			<if test="registDay != null">
+				regist_day = #{registDay,jdbcType=DATE},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=CHAR},
+			</if>
+			<if test="debitCard != null">
+				debit_card = #{debitCard,jdbcType=VARCHAR},
+			</if>
+			<if test="onlineState != null">
+				online_state = #{onlineState,jdbcType=CHAR},
+			</if>
+			<if test="maxPwdErrorTimes != null">
+				max_pwd_error_times =
+				#{maxPwdErrorTimes,jdbcType=INTEGER},
+			</if>
+			<if test="maxBorrowNumber != null">
+				max_borrow_number = #{maxBorrowNumber,jdbcType=INTEGER},
+			</if>
+			<if test="maxBorrowTime != null">
+				max_borrow_time = #{maxBorrowTime,jdbcType=INTEGER},
+			</if>
+			<if test="mycare != null">
+				mycare = #{mycare,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.bewweb.entities.User">
+		update
+		usr_user
+		set uname = #{uname,jdbcType=VARCHAR},
+		password =
+		#{password,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=CHAR},
+		rname =
+		#{rname,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		email =
+		#{email,jdbcType=VARCHAR},
+		birth_city = #{birthCity,jdbcType=VARCHAR},
+		id_card = #{idCard,jdbcType=CHAR},
+		birthday =
+		#{birthday,jdbcType=DATE},
+		now_city = #{nowCity,jdbcType=VARCHAR},
+		academic_degree = #{academicDegree,jdbcType=VARCHAR},
+		sum_mark =
+		#{sumMark,jdbcType=INTEGER},
+		degree = #{degree,jdbcType=INTEGER},
+		regist_day = #{registDay,jdbcType=DATE},
+		state =
+		#{state,jdbcType=CHAR},
+		debit_card = #{debitCard,jdbcType=VARCHAR},
+		online_state = #{onlineState,jdbcType=CHAR},
+		max_pwd_error_times =
+		#{maxPwdErrorTimes,jdbcType=INTEGER},
+		max_borrow_number =
+		#{maxBorrowNumber,jdbcType=INTEGER},
+		max_borrow_time =
+		#{maxBorrowTime,jdbcType=INTEGER},
+		mycare =
+		#{mycare,jdbcType=LONGVARCHAR}
+		where user_id =
+		#{userId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.bewweb.entities.User">
+		update usr_user
+		set uname = #{uname,jdbcType=VARCHAR},
+		password =
+		#{password,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=CHAR},
+		rname =
+		#{rname,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		email =
+		#{email,jdbcType=VARCHAR},
+		birth_city = #{birthCity,jdbcType=VARCHAR},
+		id_card = #{idCard,jdbcType=CHAR},
+		birthday =
+		#{birthday,jdbcType=DATE},
+		now_city = #{nowCity,jdbcType=VARCHAR},
+		academic_degree = #{academicDegree,jdbcType=VARCHAR},
+		sum_mark =
+		#{sumMark,jdbcType=INTEGER},
+		degree = #{degree,jdbcType=INTEGER},
+		regist_day = #{registDay,jdbcType=DATE},
+		state =
+		#{state,jdbcType=CHAR},
+		debit_card = #{debitCard,jdbcType=VARCHAR},
+		online_state = #{onlineState,jdbcType=CHAR},
+		max_pwd_error_times =
+		#{maxPwdErrorTimes,jdbcType=INTEGER},
+		max_borrow_number =
+		#{maxBorrowNumber,jdbcType=INTEGER},
+		max_borrow_time =
+		#{maxBorrowTime,jdbcType=INTEGER}
+		where user_id =
+		#{userId,jdbcType=BIGINT}
+	</update>
+</mapper>

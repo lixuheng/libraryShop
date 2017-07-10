@@ -1,0 +1,162 @@
+.regist{
+	margin-top:-50px;
+}
+.regist_top{
+	width:1190px;
+	display:inline;
+}
+.welcome{
+	position:absolute;
+	letf:400px;
+	top:-100px;
+	display:inline;
+	font-size: 45px;
+	margin-left:20px;
+	margin-top:160px;
+}
+
+.top_login{
+	position:absolute;
+	letf:400px;
+	top:80px;
+	display:inline;
+	font-size:20px;
+	margin-left:560px;
+}
+
+.regist_top img{
+	margin-left:100px;
+	display:inline;
+	height:120px;
+}
+
+.regist_bottom{
+	position:relative;
+	/* background:#786; */
+	width:1190px;
+	background-size:100%;
+}
+
+.regist_main{
+	margin:10px 40px 20px 260px;
+	padding:20px;
+	width:500px;
+	min-height:360px;
+	border-right:2px solid #eee;
+	background-color:#fff;
+}
+
+
+
+.regist_right{
+	position:absolute;
+	left:800px;
+	top:10px;
+	margin-top:20px;
+	padding:4px;
+	width:350px;
+	min-height:360px;
+	background-color:#fff;
+}
+
+
+.form-control {
+  display: inline;
+  width: 70%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.form-control::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  color: #999;
+}
+.form-control::-webkit-input-placeholder {
+  color: #999;
+}
+
+
+.form_valideCode{
+	
+}
+
+.valideInput{
+	 display: inline;
+	 width:40%;
+}
+
+.form_valideCode img{
+	 display: inline;
+	 heigth:40px;
+	 width:30%;
+}
+
+.form-item label{
+	font-size:14px;
+}
+
+.input-tip{
+	height:20px;
+	width:100%;
+}
+
+.regist_right img{
+	width:50px;
+	height:50px;
+}
+
+.regist a:hover{
+	text-decoration: none;
+	color:blue;
+}
+form label{
+	border:2px solid #ddd;
+	height:inherit;
+	width:88px;
+	padding:4px;
+	color:#666;
+	background-color:#eee;
+}
+#phoneCode{
+	width:40%;
+}
+#getPhoneCode{
+	height:inherit;
+	font-size:14px;
+	margin-bottom:2px;
+}
+#imgAuthCode{
+	margin-bottom:2px;
+}
+#authCode{
+	width:40%;
+	height:inherit;
+}
+#submit{
+	width:85%;
+}
+
+
+
+
+

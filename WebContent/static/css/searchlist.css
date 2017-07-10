@@ -1,0 +1,64 @@
+#searchResult {
+	min-height: 600px;
+}
+
+.title {
+	margin-top:10px;
+	font-size: 14px; position : relative;
+	height: 45px;
+	width: 1100px;
+	background: #eee;
+	position: relative;
+}
+
+.title .column {
+	line-height: 45px;
+	float: left;
+	margin-left: 20px;
+	width:60px;
+}
+
+
+.title .goods {
+	width:420px;
+}
+
+.title .opt {
+	/* text-align:center; */
+	width:200px;
+}
+
+.main {
+	border: 1px solid #eee;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	height: 130px;
+	width: 1100px;
+	/* background: #eee; */
+	margin-top: 10px;
+}
+
+.main img {
+	display: inline-block;
+	height: 115px;
+}
+
+.main .column {
+	margin-top: 50px;
+	float: left;
+	margin-left: 20px;
+	width:60px;
+}
+
+.main .img {
+	float: left;
+	margin-top: 10px;
+	width: 120px;
+}
+
+.main .intro {
+	width: 300px;
+	overflow-x: auto;
+}
+

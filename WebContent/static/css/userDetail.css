@@ -1,0 +1,270 @@
+.menu {
+	position: fixed;
+	/* 	left:20%; */
+	top: 60px;
+	margin-left: 10px;
+	background: #D9DAEB;
+	width: 120px;
+	min-height: 600px;
+	text-decoration: none;
+	padding: 5px;
+	font-size: 14px;
+}
+.menu a {
+	font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif; 
+	color:#4C4C4C;
+	line-height: 24px;
+}
+.menu a:hover {
+	font-weight:bold;
+	/* color:#055A9F; */
+	text-decoration: none;
+}
+.menu ul{
+	list-style: square;
+}
+
+
+.main_right {
+	
+}
+
+.slide {
+	background: #FAF4FE;
+}
+
+.slide>div {
+	position: relative;
+	/* 	background:#ccc; */
+	width: 930px;
+	margin-left: 150px;
+	min-height: 420px;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: bold;
+	color: red;
+}
+
+.switch {
+	background: #E6E6F8;
+	width: 100%;
+	min-height: 420px;
+	padding:10px;
+	padding-bottom: 60px;
+	margin-bottom: 40px;
+}
+
+.switch h5 {
+	margin-left: 10px;
+}
+
+.switch form {
+	width: 600px;
+}
+
+/*  个人信息css开始   */
+
+/* 聊天的css*/
+.fileinput {
+	position: relative;
+	display: inline-block;
+	background-color: #D0EEFF;
+	border: 1px solid #99D3F5;
+	border-radius: 4px;
+	padding: 4px 12px;
+	overflow: hidden;
+	color: #1E88C7;
+	text-decoration: none;
+	text-indent: 0;
+	line-height: 20px;
+}
+
+.fileinput input {
+	position: absolute;
+	font-size: 100px;
+	right: 0;
+	top: 0;
+	opacity: 0;
+}
+
+.fileinput:hover {
+	background: #AADFFD;
+	border-color: #78C3F3;
+	color: #004974;
+	text-decoration: none;
+}
+
+.refont {
+	font-size: 20px;
+	font-family: SimSun;
+}
+
+.square {
+	width: 98%;
+	height: 100px;
+}
+/* 上传域css结束位置*/
+
+
+
+.headpic {
+	position: relative;
+	width: 600px;
+}
+
+
+#button {
+	display:none;
+	position: absolute;
+	top:-0px;
+	left:120px;
+}
+
+.preview img {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: -23px;
+	right: 0px;
+}
+
+.addbtn {
+	margin: 20px 0px 20px 0px;
+}
+
+#addMore {
+	position: relative;
+	margin-bottom: 20px;
+}
+
+#save {
+	margin-bottom: 30px; 
+}
+/*  个人信息css结束  */
+#area select {
+	width: 100px;
+	font-size: 18px;
+	border-color: #ddd;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+
+.rowbox{
+	padding:10px;
+	margin-bottom: 10px;
+	background: #eeffdd;
+}
+
+.rowbox>label{
+	display:block;
+	float-left;
+	font-size: 14px;
+	width:120px;
+}
+
+.rowbox>span{
+	display:block;
+	float:left;
+	font-size: 14px;
+	width:260px;
+	overflow-x:auto;
+}
+#pwdForm .label{
+	display: inline-block;
+	text-align:center;
+	width:120px;
+	font-size:12px;
+	font-weight:bold;
+	color:black;
+}
+
+#pwdForm .tip{
+	margin-left:130px;
+}
+#phoneExt{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#address{
+	
+}
+
+.smicon img{
+	width:20px;
+	height:20px;
+}
+
+.table_form{
+	
+}
+.table_head_box{
+	position:relative;
+	height: 30px;
+	margin-bottom: 20px;
+}
+.table_head_box .table_find{
+	float:left;
+}
+
+.table_head_box button{
+	float:right;
+	margin-right:20px;
+}
+
+
+#circl-item{
+	margin-top:10px;
+	min-height:200px;
+	border:1px solid black;
+}
+.setHead{
+	margin-top:10px;
+	width:100%;
+	height: 40px;
+	line-height:40px;
+	/* border:2px solid red; */
+}
+.setHead>div{
+	float:left;
+	margin-left:10px;
+	line-height:60px;
+	width:260px;
+}
+.cartForm{
+	position:relative;
+	margin-top:10px;
+	width:100%;
+	height: 140px;
+	
+}
+.cartForm>div{
+	/* float:left; */
+	margin-left:10px;
+	width:50px;
+	height: 120px;
+}
+.cartForm img{
+	height: 120px;
+}
+
+.cartForm .info{
+	position:absolute;
+	top:50px;
+	left:0px;
+	margin-left:200px;
+	margin-bottom:60px;
+	width:600px;
+	height:50px;
+}
+.cartForm .info div{
+	float:left;
+	margin-left: 10px;
+	width:200px;
+}
+

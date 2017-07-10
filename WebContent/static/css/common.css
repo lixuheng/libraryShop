@@ -1,0 +1,107 @@
+/* 解决锚点跳跃被固定的nav遮掩 */
+.target {
+  position: relative;
+}
+.placeholder {
+  position: absolute;
+  display:block; 
+  width:100px;   /* 小于父级宽度的值 */
+  height:60px;  /*高度值为顶部固定块的高度 */
+  top: -60px;    /* 值为顶部固定块的高度 */
+}
+
+/* 字体大小 */
+.font10{
+	font-size:10px;
+}
+.font12{
+	font-size:12px;
+}
+.font13{
+	font-size:13px;
+}
+.font14{
+	font-size:14px;
+}
+.font16{
+	font-size:16px;
+}
+.font20{
+	font-size:20px;
+}
+.font28{
+	font-size:28px;
+}
+
+/* 内容边距  */
+.contentM5{
+	margin:5px;
+}
+.contentM10{
+	margin:10px;
+}
+.contentM15{
+	margin:15px;
+}
+.contentM20{
+	margin:20px;
+}
+.marginR10{
+	margin-right: 10px;
+}
+.marginL10{
+	margin-left: 10px;
+}
+.marginT10{
+	margin-top: 10px;
+}
+.marginB10{
+	margin-bottom: 20px;
+}
+.marginR20{
+	margin-right: 20px;
+}
+.marginL20{
+	margin-left: 20px;
+}
+.marginT20{
+	margin-top: 20px;
+}
+.marginB20{
+	margin-bottom: 20px;
+}
+
+/* 对齐模式 */
+.textR{
+	text-align:right;
+}
+.textC{
+	text-align:center;
+}
+
+.inline{
+	display:inline;
+}
+.floatR{
+	float:right;
+}
+
+.floatL{
+	float:left;
+}
+
+/* 常用颜色 */
+.red{
+	color: red;
+}
+.blue{
+	color: blue;
+}
+.green{
+	color: green;
+}
+.white{
+	color:white;
+}
+
+

@@ -1,0 +1,37 @@
+.bigbox {
+	background: #fbf6fd; 
+	position: relative;
+	top: -60px;
+	padding-top: 10px;
+}
+
+.head {
+	background: #eee;
+	line-height: 50px;
+	width:98%;
+}
+
+.switch {
+	background: white;
+}
+
+.title {
+	margin-top:10px;
+	/* margin: 20px 0px; */
+	height: 50px;
+	background: #f7fdfc;
+}
+/* .title  */
+.column {
+	float: left;
+	margin-left: 20px;
+	width: 120px;
+	line-height: 40px;
+}
+
+
+.item {
+	padding:10px;
+	background: #ddfafd;
+	min-height: 400px;
+}

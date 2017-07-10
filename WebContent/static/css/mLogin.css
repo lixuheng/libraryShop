@@ -1,0 +1,31 @@
+
+/**************************login***************/
+body {
+	margin:0px auto;
+	background-image: url(../img/login/bg_login.png);
+}
+
+
+#login {
+	margin-left:20%;
+	padding:40px;
+	width:500px;
+	height:400px;
+	background-image: url(../img/login/bg_login.png);
+}
+#login .item{
+	margin-bottom:2px;
+}
+
+#login img{
+	width:120px;
+	height:30px;
+	margin-top:10px;
+}
+
+
+
+#login a {
+	color: white;
+	text-decoration: none
+}

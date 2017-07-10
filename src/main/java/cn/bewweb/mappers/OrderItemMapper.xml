@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bewweb.dao.OrderItemMapper" >
+  <resultMap id="BaseResultMap" type="cn.bewweb.entities.OrderItem" >
+    <id column="orderItem_id" property="orderItemId" jdbcType="BIGINT" />
+    <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="shop_id" property="shopId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="join_time" property="joinTime" jdbcType="TIMESTAMP" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="subtotal" property="subtotal" jdbcType="DECIMAL" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="shop_promotion_ticket" property="shopPromotionTicket" jdbcType="DECIMAL" />
+    <result column="one_price" property="onePrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orderItem_id, goods_id, order_id, shop_id, user_id, join_time, count, subtotal, state, shop_promotion_ticket, goods_name, one_price 
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from trade_orderitem
+    where orderItem_id = #{orderItemId,jdbcType=BIGINT}
+  </select>
+  
+  
+   <select id="coutItemOnOneOrder" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select count(1)  from trade_orderitem 
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  
+  
+  <select id="find" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trade_orderitem
+    <where>
+    	<if test="param1 !=null and param1.orderItemId != null" >
+        orderItem_id= #{param1.orderItemId} 
+      </if>
+      <if test="param1 !=null and param1.goodsId != null" >
+        and goods_id= #{param1.goodsId} 
+      </if>
+      <if test="param1 !=null and param1.orderId != null" >
+        and order_id= #{param1.orderId} 
+      </if>
+      <if test="param1 !=null and param1.shopId != null" >
+        and shop_id= #{param1.shopId} 
+      </if>
+      <if test="param1 !=null and param1.joinTime != null" >
+        and join_time= #{param1.joinTime} 
+      </if>
+      <if test="param1 !=null and param1.count != null" >
+        and count= #{param1.count} 
+      </if>
+      <if test="param1 !=null and param1.subtotal != null" >
+        and subtotal= #{param1.subtotal} 
+      </if>
+      <if test="param1 !=null and param1.state != null" >
+        and state= #{param1.state} 
+      </if>
+      <if test="param1 !=null and param1.shopPromotionTicket != null" >
+        and shop_promotion_ticket= #{param1.shopPromotionTicket} 
+      </if>
+     <if test="param1 !=null and param1.goodsName != null" >
+        and goods_name = #{param1.goodsName} 
+      </if>
+      <if test="param1 !=null and param1.onePrice != null" >
+        and one_price = #{param1.onePrice} 
+      </if>
+      <if test="param1 !=null and param1.userId != null" >
+        and user_id = #{param1.userId} 
+      </if>
+    </where>
+    limit #{1},#{2} 
+  </select>
+  
+  
+  
+  <select id="findAndeOrderBy" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trade_orderitem
+    <where>
+    	<if test="param1 !=null and param1.orderItemId != null" >
+        orderItem_id= #{param1.orderItemId} 
+      </if>
+      <if test="param1 !=null and param1.goodsId != null" >
+        and goods_id= #{param1.goodsId} 
+      </if>
+      <if test="param1 !=null and param1.orderId != null" >
+        and order_id= #{param1.orderId} 
+      </if>
+      <if test="param1 !=null and param1.shopId != null" >
+        and shop_id= #{param1.shopId} 
+      </if>
+      <if test="param1 !=null and param1.joinTime != null" >
+        and join_time= #{param1.joinTime} 
+      </if>
+      <if test="param1 !=null and param1.count != null" >
+        and count= #{param1.count} 
+      </if>
+      <if test="param1 !=null and param1.subtotal != null" >
+        and subtotal= #{param1.subtotal} 
+      </if>
+      <if test="param1 !=null and param1.state != null" >
+        and state= #{param1.state} 
+      </if>
+      <if test="param1 !=null and param1.shopPromotionTicket != null" >
+        and shop_promotion_ticket= #{param1.shopPromotionTicket} 
+      </if>
+      <if test="param1 !=null and param1.goodsName != null" >
+        and goods_name = #{param1.goodsName} 
+      </if>
+      <if test="param1 !=null and param1.onePrice != null" >
+        and one_price = #{param1.onePrice} 
+      </if>
+       <if test="param1 !=null and param1.userId != null" >
+        and user_id = #{param1.userId} 
+      </if>
+    </where>
+    order by #{1} 
+    limit #{2},#{3} 
+  </select>
+  
+  <select id="isHadGoods" resultType="java.lang.Integer" >
+    select count(1) from trade_orderitem where order_id = 1000000000000000 and goods_id = #{0} and shop_id = #{1};
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from trade_orderitem
+    where orderItem_id = #{orderItemId,jdbcType=BIGINT}
+  </delete>
+  
+  
+  
+  <delete id="deleteByUser" parameterType="java.lang.Long" >
+    delete from trade_orderitem 
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="cn.bewweb.entities.OrderItem" >
+    insert into trade_orderitem (orderItem_id, goods_id, order_id, 
+      shop_id, join_time, count, 
+      subtotal, state, shop_promotion_ticket,goods_name,one_price,user_id  
+      )
+    values (#{orderItemId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, 
+      #{shopId,jdbcType=BIGINT}, #{joinTime,jdbcType=TIMESTAMP}, #{count,jdbcType=INTEGER}, 
+      #{subtotal,jdbcType=DECIMAL}, #{state,jdbcType=CHAR}, #{shopPromotionTicket,jdbcType=DECIMAL}, 
+      #{goodsName,jdbcType=VARCHAR},#{onePrice,jdbcType=DECIMAL},#{userId,jdbcType=BIGINT} 
+      )
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="cn.bewweb.entities.OrderItem" >
+    insert into trade_orderitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        orderItem_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="joinTime != null" >
+        join_time,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="subtotal != null" >
+        subtotal,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="shopPromotionTicket != null" >
+        shop_promotion_ticket,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="onePrice != null" >
+        one_price,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="joinTime != null" >
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="subtotal != null" >
+        #{subtotal,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="shopPromotionTicket != null" >
+        #{shopPromotionTicket,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="onePrice != null" >
+        #{onePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.bewweb.entities.OrderItem" >
+    update trade_orderitem
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="joinTime != null" >
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="subtotal != null" >
+        subtotal = #{subtotal,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="shopPromotionTicket != null" >
+        shop_promotion_ticket = #{shopPromotionTicket,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName},  
+      </if>
+      <if test="onePrice != null" >
+        one_price = #{onePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where orderItem_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="cn.bewweb.entities.OrderItem" >
+    update trade_orderitem
+    set goods_id = #{goodsId,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=BIGINT},
+      shop_id = #{shopId,jdbcType=BIGINT},
+      join_time = #{joinTime,jdbcType=TIMESTAMP},
+      count = #{count,jdbcType=INTEGER},
+      subtotal = #{subtotal,jdbcType=DECIMAL},
+      state = #{state,jdbcType=CHAR},
+      shop_promotion_ticket = #{shopPromotionTicket,jdbcType=DECIMAL},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      one_price = #{onePrice,jdbcType=DECIMAL}, 
+      user_id = #{userId,jdbcType=BIGINT} 
+    where orderItem_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+  <!-- ///////////////////// -->
+  <update id="setStateDoPayByOrderId"  parameterType="java.lang.Long" >
+    update set state = '2' 
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+</mapper>

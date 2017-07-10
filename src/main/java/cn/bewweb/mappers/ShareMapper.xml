@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bewweb.dao.ShareMapper">
+	<resultMap id="BaseResultMap" type="cn.bewweb.entities.Share">
+		<id column="share_id" property="shareId" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="subject" property="subject" jdbcType="VARCHAR" />
+		<result column="self_label" property="selfLabel" jdbcType="VARCHAR" />
+		<result column="share_datetime" property="shareDatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="share_image_path" property="shareImagePath"
+			jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="keywords" property="keywords" jdbcType="VARCHAR" />
+		<result column="mind" property="mind" jdbcType="CHAR" />
+		<result column="state" property="state" jdbcType="CHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="cn.bewweb.entities.Share"
+		extends="BaseResultMap">
+		<result column="share_content" property="shareContent"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		share_id, user_id, subject, self_label, share_datetime,
+		share_image_path,
+		title,
+		keywords, mind, state
+	</sql>
+	<sql id="Blob_Column_List">
+		share_content
+	</sql>
+	<!-- select -->
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_share
+		where share_id = #{shareId,jdbcType=BIGINT}
+	</select>
+
+	<select id="find" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_share 
+		<where>
+			<if test="param1!= null and param1.shareId!=null ">
+				share_id = #{param1.shareId} 
+			</if>
+			 
+			<if test="param1!= null and param1.userId != null">
+				and user_id = #{param1.userId} 
+			</if>
+			  
+			<if test="param1!= null and param1.subject != null">
+				and subject like '%${param1.subject}%' 
+			</if>
+			<if test="param1!= null and param1.selfLabel != null">
+				and self_label = #{param1.selfLabel} 
+			</if>
+			<if test="param1!= null and param1.shareDatetime != null">
+				and share_datetime = #{param1.shareDatetime} 
+			</if>
+			<if test="param1!= null and param1.shareImagePath != null">
+				and share_image_path =#{param1.shareImagePath} 
+			</if>
+			<if test="param1!= null and param1.title != null">
+				and title like '%${param1.title}%'  
+			</if>
+			
+			<if test="param1!= null and param1.keywords != null">
+				and keywords = #{param1.keywords} 
+			</if>
+			<if test="param1!= null and param1.mind != null">
+				and mind = #{param1.mind} 
+			</if>
+			<if test="param1!= null and param1.state != null">
+				and state = #{param1.state} 
+			</if>
+			
+			<if test="param1!= null and param1.shareContent != null">
+				and share_content like '%${param1.shareContent}%'  
+			</if> 
+			
+		</where> 
+		limit #{1},#{2}
+	</select>
+
+	<select id="selectOrderBy" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_share
+		order by #{0} 
+		limit #{1},#{2}
+	</select>
+
+	<select id="selectBySubject" resultMap="ResultMapWithBLOBs">
+		select 
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_share 
+		where subject like #{0} 
+		limit #{1},#{2}
+	</select>
+
+	<select id="selectByTitle" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_share
+		where title like #{0}
+		limit
+		#{1},#{2}
+	</select>
+
+	<select id="selectByContent" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_share
+		where share_content like #{0}
+		limit #{1},#{2}
+	</select>
+
+
+	<select id="selectByKeyWords" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_share
+		<where>
+			<foreach item="item" index="index" collection="param1"
+				separator=" or ">
+				keywords like '%${item}%'
+			</foreach>
+		</where>
+		limit #{param2},#{param3}
+	</select>
+
+	<select id="selectByMind" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_share
+		where mind like #{0}
+		limit #{1},#{2}
+	</select>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		touch_share
+		where share_id = #{shareId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="cn.bewweb.entities.Share">
+		insert into touch_share
+		(share_id, user_id, subject,
+		self_label, share_datetime,
+		share_image_path,
+		title, keywords, mind,
+		state, share_content)
+		values
+		(#{shareId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+		#{subject,jdbcType=VARCHAR},
+		#{selfLabel,jdbcType=VARCHAR},
+		#{shareDatetime,jdbcType=TIMESTAMP},
+		#{shareImagePath,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{keywords,jdbcType=VARCHAR}, #{mind,jdbcType=CHAR},
+		#{state,jdbcType=CHAR}, #{shareContent,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.bewweb.entities.Share">
+		insert into touch_share
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="shareId != null">
+				share_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="subject != null">
+				subject,
+			</if>
+			<if test="selfLabel != null">
+				self_label,
+			</if>
+			<if test="shareDatetime != null">
+				share_datetime,
+			</if>
+			<if test="shareImagePath != null">
+				share_image_path,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="keywords != null">
+				keywords,
+			</if>
+			<if test="mind != null">
+				mind,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="shareContent != null">
+				share_content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="shareId != null">
+				#{shareId,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="subject != null">
+				#{subject,jdbcType=VARCHAR},
+			</if>
+			<if test="selfLabel != null">
+				#{selfLabel,jdbcType=VARCHAR},
+			</if>
+			<if test="shareDatetime != null">
+				#{shareDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="shareImagePath != null">
+				#{shareImagePath,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="keywords != null">
+				#{keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="mind != null">
+				#{mind,jdbcType=CHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR},
+			</if>
+			<if test="shareContent != null">
+				#{shareContent,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.bewweb.entities.Share">
+		update touch_share
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="subject != null">
+				subject = #{subject,jdbcType=VARCHAR},
+			</if>
+			<if test="selfLabel != null">
+				self_label = #{selfLabel,jdbcType=VARCHAR},
+			</if>
+			<if test="shareDatetime != null">
+				share_datetime = #{shareDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="shareImagePath != null">
+				share_image_path = #{shareImagePath,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="keywords != null">
+				keywords = #{keywords,jdbcType=VARCHAR},
+			</if>
+			<if test="mind != null">
+				mind = #{mind,jdbcType=CHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=CHAR},
+			</if>
+			<if test="shareContent != null">
+				share_content = #{shareContent,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where share_id = #{shareId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.bewweb.entities.Share">
+		update
+		touch_share
+		set user_id = #{userId,jdbcType=BIGINT},
+		subject =
+		#{subject,jdbcType=VARCHAR},
+		self_label =
+		#{selfLabel,jdbcType=VARCHAR},
+		share_datetime =
+		#{shareDatetime,jdbcType=TIMESTAMP},
+		share_image_path =
+		#{shareImagePath,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		keywords = #{keywords,jdbcType=VARCHAR},
+		mind = #{mind,jdbcType=CHAR},
+		state = #{state,jdbcType=CHAR},
+		share_content =
+		#{shareContent,jdbcType=LONGVARCHAR}
+		where share_id =
+		#{shareId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.bewweb.entities.Share">
+		update touch_share
+		set user_id = #{userId,jdbcType=BIGINT},
+		subject =
+		#{subject,jdbcType=VARCHAR},
+		self_label =
+		#{selfLabel,jdbcType=VARCHAR},
+		share_datetime =
+		#{shareDatetime,jdbcType=TIMESTAMP},
+		share_image_path =
+		#{shareImagePath,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		keywords = #{keywords,jdbcType=VARCHAR},
+		mind = #{mind,jdbcType=CHAR},
+		state = #{state,jdbcType=CHAR}
+		where share_id =
+		#{shareId,jdbcType=BIGINT}
+	</update>
+</mapper>

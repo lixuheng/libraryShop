@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bewweb.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.bewweb.entities.Order" >
+    <id column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="addr_id" property="addrId" jdbcType="BIGINT" />
+    <result column="promotions_ticket" property="promotionsTicket" jdbcType="DECIMAL" />
+    <result column="delivery_cost" property="deliveryCost" jdbcType="DECIMAL" />
+    <result column="assure_cost" property="assureCost" jdbcType="DECIMAL" />
+    <result column="really_cost" property="reallyCost" jdbcType="DECIMAL" />
+    <result column="total_cost" property="totalCost" jdbcType="DECIMAL" />
+    <result column="generate_datetime" property="generateDatetime" jdbcType="TIMESTAMP" />
+    <result column="pay_datetime" property="payDatetime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="max_valid_time" property="maxValidTime" jdbcType="INTEGER" />
+    <result column="min_sent_cost" property="minSentCost" jdbcType="DECIMAL" />
+    <result column="max_assure_money" property="maxAssureMoney" jdbcType="DECIMAL" />
+    <result column="max_delivery_time" property="maxDeliveryTime" jdbcType="INTEGER" />
+    <result column="pay_method" property="payMethod" jdbcType="CHAR" />
+    <result column="delivery_way" property="deliveryWay" jdbcType="CHAR" />
+    
+    <association  property="address" javaType="cn.bewweb.entities.Address">
+    	<id column="addr_id" property="addrId" jdbcType="BIGINT" />
+	    <result column="user_id" property="userId" jdbcType="BIGINT" />
+	    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+	    <result column="tel" property="tel" jdbcType="VARCHAR" />
+	    <result column="info" property="info" jdbcType="VARCHAR" />
+	    <result column="isDefault" property="isdefault" jdbcType="CHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, user_id, addr_id , promotions_ticket, delivery_cost, assure_cost, really_cost, total_cost, 
+    generate_datetime, pay_datetime, state, max_valid_time, min_sent_cost, max_assure_money, 
+    max_delivery_time, pay_method,delivery_way 
+  </sql>
+  
+  <sql id="Base_Column_List_Address" >
+    trade_address.addr_id, trade_address.user_id, 
+    trade_address.user_name, trade_address.tel, 
+    trade_address.info, trade_address.isDefault 
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from trade_order 
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  
+ 
+   <select id="selectByPrimaryKeyWithAddrs" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+ 	trade_order.order_id , 
+ 	trade_order.promotions_ticket ,
+ 	trade_order.delivery_cost,
+ 	trade_order.assure_cost,
+ 	trade_order.total_cost,
+ 	trade_address.addr_id ,
+    trade_address.user_id ,
+    trade_address.user_name ,
+    trade_address.info, 
+    trade_address.tel  
+    from trade_order left join trade_address on trade_order.user_id = trade_address.user_id
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  
+  
+  
+  <select id="find" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from trade_order 
+    <where>
+    	<if test="param1 !=null and param1.orderId != null" >
+        order_id= #{param1.orderId} 
+      </if>
+      <if test="param1 !=null and param1.userId != null" >
+        and user_id= #{param1.userId} 
+      </if>
+      <if test="param1 !=null and param1.addrId != null" >
+        and addr_id= #{param1.addrId} 
+      </if>
+      <if test="param1 !=null and param1.promotionsTicket != null" >
+        and promotions_ticket= #{param1.promotionsTicket} 
+      </if>
+      <if test="param1 !=null and param1.deliveryCost != null" >
+        and delivery_cost= #{param1.deliveryCost} 
+      </if>
+      <if test="param1 !=null and param1.assureCost != null" >
+        and assure_cost= #{param1.assureCost} 
+      </if>
+      <if test="param1 !=null and param1.reallyCost != null" >
+        and really_cost= #{param1.reallyCost} 
+      </if>
+      <if test="param1 !=null and param1.totalCost != null" >
+        and total_cost= #{param1.totalCost} 
+      </if>
+      <if test="param1 !=null and param1.generateDatetime != null" >
+        and generate_datetime= #{param1.generateDatetime} 
+      </if>
+      <if test="param1 !=null and param1.payDatetime != null" >
+        and pay_datetime= #{param1.payDatetime} 
+      </if>
+      <if test="param1 !=null and param1.state != null" >
+        and state= #{param1.state} 
+      </if>
+      <if test="param1 !=null and param1.maxValidTime != null" >
+        and max_valid_time= #{param1.maxValidTime} 
+      </if>
+      <if test="param1 !=null and param1.minSentCost != null" >
+        and min_sent_cost= #{param1.minSentCost} 
+      </if>
+      <if test="param1 !=null and param1.maxAssureMoney != null" >
+        and max_assure_money= #{param1.maxAssureMoney} 
+      </if>
+      <if test="param1 !=null and param1.maxDeliveryTime != null" >
+        and max_delivery_time= #{param1.maxDeliveryTime} 
+      </if>
+      
+      <if test="param1 !=null and param1.payMethod != null" >
+        and pay_method= #{param1.payMethod} 
+      </if>
+      <if test="param1 !=null and param1.deliveryWay != null" >
+        and delivery_way= #{param1.deliveryWay} 
+      </if>
+    </where>
+    limit #{1},#{2} 
+  </select>
+  
+  
+  
+  <select id="findAndeOrderBy" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from trade_order 
+    <where>
+    	<if test="param1 !=null and param1.orderId != null" >
+        order_id= #{param1.orderId} 
+      </if>
+      <if test="param1 !=null and param1.userId != null" >
+        and user_id= #{param1.userId} 
+      </if>
+       <if test="param1 !=null and param1.addrId != null" >
+        and addr_id= #{param1.addrId} 
+      </if>
+      <if test="param1 !=null and param1.promotionsTicket != null" >
+        and promotions_ticket= #{param1.promotionsTicket} 
+      </if>
+      <if test="param1 !=null and param1.deliveryCost != null" >
+        and delivery_cost= #{param1.deliveryCost} 
+      </if>
+      <if test="param1 !=null and param1.assureCost != null" >
+        and assure_cost= #{param1.assureCost} 
+      </if>
+      <if test="param1 !=null and param1.reallyCost != null" >
+        and really_cost= #{param1.reallyCost} 
+      </if>
+      <if test="param1 !=null and param1.totalCost != null" >
+        and total_cost= #{param1.totalCost} 
+      </if>
+      <if test="param1 !=null and param1.generateDatetime != null" >
+        and generate_datetime= #{param1.generateDatetime} 
+      </if>
+      <if test="param1 !=null and param1.payDatetime != null" >
+        and pay_datetime= #{param1.payDatetime} 
+      </if>
+      <if test="param1 !=null and param1.state != null" >
+        and state= #{param1.state} 
+      </if>
+      <if test="param1 !=null and param1.maxValidTime != null" >
+        and max_valid_time= #{param1.maxValidTime} 
+      </if>
+      <if test="param1 !=null and param1.minSentCost != null" >
+        and min_sent_cost= #{param1.minSentCost} 
+      </if>
+      <if test="param1 !=null and param1.maxAssureMoney != null" >
+        and max_assure_money= #{param1.maxAssureMoney} 
+      </if>
+      <if test="param1 !=null and param1.maxDeliveryTime != null" >
+        and max_delivery_time= #{param1.maxDeliveryTime} 
+      </if>
+      <if test="param1 !=null and param1.payMethod != null" >
+        and pay_method= #{param1.payMethod} 
+      </if>
+      <if test="param1 !=null and param1.deliveryWay != null" >
+        and delivery_way= #{param1.deliveryWay} 
+      </if>
+    </where>
+    order by #{1} 
+    limit #{2},#{3} 
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from trade_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  
+  <delete id="deleteByUser" parameterType="java.lang.Long" >
+    delete from trade_order 
+    where user_id = #{userID,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="cn.bewweb.entities.Order" >
+    insert into trade_order (order_id, user_id, addr_id,  promotions_ticket, 
+      delivery_cost, assure_cost, really_cost, 
+      total_cost, generate_datetime, pay_datetime, 
+      state, max_valid_time, min_sent_cost, 
+      max_assure_money, max_delivery_time,pay_method,delivery_way)
+    values (#{orderId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{addrId,jdbcType=BIGINT}, #{promotionsTicket,jdbcType=DECIMAL}, 
+      #{deliveryCost,jdbcType=DECIMAL}, #{assureCost,jdbcType=DECIMAL}, #{reallyCost,jdbcType=DECIMAL}, 
+      #{totalCost,jdbcType=DECIMAL}, #{generateDatetime,jdbcType=TIMESTAMP}, #{payDatetime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=CHAR}, #{maxValidTime,jdbcType=INTEGER}, #{minSentCost,jdbcType=DECIMAL}, 
+      #{maxAssureMoney,jdbcType=DECIMAL}, #{maxDeliveryTime,jdbcType=INTEGER},
+      #{payMethod,jdbcType=CHAR},#{deliveryWay,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.bewweb.entities.Order" >
+    insert into trade_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="addrId != null" >
+        addr_id,
+      </if>
+      <if test="promotionsTicket != null" >
+        promotions_ticket,
+      </if>
+      <if test="deliveryCost != null" >
+        delivery_cost,
+      </if>
+      <if test="assureCost != null" >
+        assure_cost,
+      </if>
+      <if test="reallyCost != null" >
+        really_cost,
+      </if>
+      <if test="totalCost != null" >
+        total_cost,
+      </if>
+      <if test="generateDatetime != null" >
+        generate_datetime,
+      </if>
+      <if test="payDatetime != null" >
+        pay_datetime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="maxValidTime != null" >
+        max_valid_time,
+      </if>
+      <if test="minSentCost != null" >
+        min_sent_cost,
+      </if>
+      <if test="maxAssureMoney != null" >
+        max_assure_money,
+      </if>
+      <if test="maxDeliveryTime != null" >
+        max_delivery_time,
+      </if>
+      <if test="payMethod != null" >
+        pay_method,
+      </if>
+      <if test="deliveryWay != null" >
+        delivery_way,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="addrId != null" >
+        #{addr_id,jdbcType=BIGINT},
+      </if>
+      <if test="promotionsTicket != null" >
+        #{promotionsTicket,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryCost != null" >
+        #{deliveryCost,jdbcType=DECIMAL},
+      </if>
+      <if test="assureCost != null" >
+        #{assureCost,jdbcType=DECIMAL},
+      </if>
+      <if test="reallyCost != null" >
+        #{reallyCost,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCost != null" >
+        #{totalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="generateDatetime != null" >
+        #{generateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payDatetime != null" >
+        #{payDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="maxValidTime != null" >
+        #{maxValidTime,jdbcType=INTEGER},
+      </if>
+      <if test="minSentCost != null" >
+        #{minSentCost,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAssureMoney != null" >
+        #{maxAssureMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="maxDeliveryTime != null" >
+        #{maxDeliveryTime,jdbcType=INTEGER},
+      </if>
+      <if test="payMethod != null" >
+        #{payMethod,jdbcType=CHAR},
+      </if>
+      <if test="deliveryWay != null" >
+        #{deliveryWay,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.bewweb.entities.Order" >
+    update trade_order
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="addrId != null" >
+        addr_id = #{addrId,jdbcType=BIGINT},
+      </if>
+      <if test="promotionsTicket != null" >
+        promotions_ticket = #{promotionsTicket,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryCost != null" >
+        delivery_cost = #{deliveryCost,jdbcType=DECIMAL},
+      </if>
+      <if test="assureCost != null" >
+        assure_cost = #{assureCost,jdbcType=DECIMAL},
+      </if>
+      <if test="reallyCost != null" >
+        really_cost = #{reallyCost,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCost != null" >
+        total_cost = #{totalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="generateDatetime != null" >
+        generate_datetime = #{generateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payDatetime != null" >
+        pay_datetime = #{payDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="maxValidTime != null" >
+        max_valid_time = #{maxValidTime,jdbcType=INTEGER},
+      </if>
+      <if test="minSentCost != null" >
+        min_sent_cost = #{minSentCost,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAssureMoney != null" >
+        max_assure_money = #{maxAssureMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="maxDeliveryTime != null" >
+        max_delivery_time = #{maxDeliveryTime,jdbcType=INTEGER},
+      </if>
+      <if test="payMethod != null" >
+        pay_method = #{payMethod,jdbcType=CHAR},
+      </if>
+      <if test="deliveryWay != null" >
+        delivery_way = #{deliveryWay,jdbcType=CHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.bewweb.entities.Order" >
+    update trade_order
+    set user_id = #{userId,jdbcType=BIGINT},
+      addr_id = #{addrId,jdbcType=BIGINT},
+      promotions_ticket = #{promotionsTicket,jdbcType=DECIMAL},
+      delivery_cost = #{deliveryCost,jdbcType=DECIMAL},
+      assure_cost = #{assureCost,jdbcType=DECIMAL},
+      really_cost = #{reallyCost,jdbcType=DECIMAL},
+      total_cost = #{totalCost,jdbcType=DECIMAL},
+      generate_datetime = #{generateDatetime,jdbcType=TIMESTAMP},
+      pay_datetime = #{payDatetime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=CHAR},
+      max_valid_time = #{maxValidTime,jdbcType=INTEGER},
+      min_sent_cost = #{minSentCost,jdbcType=DECIMAL},
+      max_assure_money = #{maxAssureMoney,jdbcType=DECIMAL},
+      max_delivery_time = #{maxDeliveryTime,jdbcType=INTEGER},
+      pay_method = #{payMethod,jdbcType=CHAR},
+      delivery_way = #{deliveryWay,jdbcType=CHAR}
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+</mapper>

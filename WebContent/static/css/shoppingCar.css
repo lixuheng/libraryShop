@@ -1,0 +1,197 @@
+[v-cloak] {
+2   display: none;
+3}
+
+.bigbox{
+	width:auto;
+	mrgin:0px;
+	margin-bottom: 200px;
+}
+#cart{
+	position:relative;
+	left:0px;
+	right:0px;
+	background-color:#dee;
+	width:990px;
+	min-height:666px;
+	margin: 0 auto;
+	border:solid 2px #ddd;
+}
+
+/* 搜索部分  */
+.search{
+	margin-right:20px;
+	text-align:right;
+	position:relative;
+/* 	background:#ddd; */
+	height:60px;
+	line-height:30px;
+	margin-top:10px;
+	margin-bottom:20px;
+}
+.search form{float:right;margin-top:10px;}
+.search a{float:left;}
+
+
+/* 标题部分 */
+.car_title{
+	background:#F3F3F3;
+	height:44px;
+	width:990px;
+	position:relative;
+	left:0px;
+	top:0px;
+	
+}
+.t-input-check{
+	display: block;
+}
+.t-input-check input{
+	margin-top:10px;
+	width:20px;
+	height:20px;
+}
+.car_title .column{
+	float:left;
+	line-height:44px;
+	margin-left:10px;
+}
+.t-checkbox{
+	width:75px;
+}
+.t-goods{
+	width:75px;
+}
+.t-props{
+	width:375px;
+}
+.t-price{
+	width:100px;
+}
+.t-quantity{
+	width:100px;
+}
+.t-subSum{
+	width:90px;
+}
+.t-action{
+	width:100px;
+}
+
+
+
+/*主体部分*/
+.item{
+	position:relative;
+	left:0px;
+	right:0px;
+	background:white;
+	width:986px;
+	height:122px;
+	margin:10px 0px 10px 0px;
+}
+
+.item .column{
+	margin-right:10px;
+	float:left;
+	/* background: #ddd; */
+}
+.input-check input{
+	position:absolute;
+	width:20px;
+	height:20px;
+	left:30px;
+	top:-10px;
+	display:block;
+}
+.checkbox{
+	margin-top:40px;
+	width:0px;
+}
+.goods{
+	margin-left:30px;
+	width:510px;
+}
+.goods>img{
+	margin-top:15px;
+	width:100px;
+	float:left;
+}
+.goods>div{
+	margin-top:40px;
+	width:400px;
+	float:right;
+}
+
+.price{
+	margin-top:40px;
+	width:90px;
+}
+.quantity{
+	margin-top:40px;
+	width:100px;
+}
+.subSum{
+	margin-top:40px;
+	width:100px;
+	font-weight: bold;
+	font-size: 14px;
+}
+.action{
+	margin-top:40px;
+	width:90px;
+}
+
+
+/*结算  */
+.settlement{
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	height:60px;
+	line-height:56px;
+	width:100%;
+	background: #dffffd;
+}
+
+.bottom-checkbox{
+	margin-left:10%;
+	float:left;
+}
+.bottom-checkbox input{
+	width:20px;
+	height:20px;
+}
+
+.tipCount{
+	float:left;
+	width:100px;
+	margin-left:150px;
+}
+
+.tipPrice{
+	float:left;
+	width:200px;
+	margin-left:100px;
+}
+
+.tipSave{
+	float:left;
+	width:100px;
+}
+.tipPrice span{
+	font-size:20px;
+	font-weight:bold;
+	color:#E4393C;
+}
+
+.doSettlement{
+	margin-top:10px;
+	margin-right:10%;
+	float:right;
+}
+
+
+
+
+

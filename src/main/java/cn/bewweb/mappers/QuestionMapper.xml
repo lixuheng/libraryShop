@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bewweb.dao.QuestionMapper">
+	<resultMap id="BaseResultMap" type="cn.bewweb.entities.Question">
+		<id column="question_id" property="questionId" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="question_label" property="questionLabel"
+			jdbcType="VARCHAR" />
+		<result column="reword" property="reword" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="cn.bewweb.entities.Question"
+		extends="BaseResultMap">
+		<result column="question" property="question" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		question_id, user_id, title, question_label, reword
+	</sql>
+	<sql id="Blob_Column_List">
+		question
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_question
+		where question_id = #{questionId,jdbcType=BIGINT}
+	</select>
+
+	<select id="find" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_question
+		<where>
+			<if test="param1 !=null and param1.questionId != null">
+				question_id= #{param1.questionId}
+			</if>
+			<if test="param1 !=null and param1.userId != null">
+				and user_id= #{param1.userId}
+			</if>
+			<if test="param1 !=null and param1.title != null">
+				and title= #{param1.title}
+			</if>
+			<if test="param1 !=null and param1.questionLabel != null">
+				and question_label= #{param1.questionLabel}
+			</if>
+			<if test="param1 !=null and param1.reword != null">
+				and reword= #{param1.reword}
+			</if>
+			<if test="param1 !=null and param1.question != null">
+				and question like '%${param1.question}%'
+			</if>
+		</where>
+		limit #{1},#{2}
+	</select>
+
+
+	<select id="findAndeOrderBy" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_question
+		<where>
+			<if test="param1 !=null and param1.questionId != null">
+				question_id= #{param1.questionId}
+			</if>
+			<if test="param1 !=null and param1.userId != null">
+				and user_id= #{param1.userId}
+			</if>
+			<if test="param1 !=null and param1.title != null">
+				and title= #{param1.title}
+			</if>
+			<if test="param1 !=null and param1.questionLabel != null">
+				and question_label= #{param1.questionLabel}
+			</if>
+			<if test="param1 !=null and param1.reword != null">
+				and reword= #{param1.reword}
+			</if>
+			<if test="param1 !=null and param1.question != null">
+				and question like '%${param1.question}%'
+			</if>
+		</where>
+		order by #{1}
+		limit #{2},#{3}
+	</select>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		touch_question
+		where question_id = #{questionId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="cn.bewweb.entities.Question">
+		insert into touch_question
+		(question_id, user_id, title,
+		question_label, reword, question
+		)
+		values
+		(#{questionId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+		#{title,jdbcType=VARCHAR},
+		#{questionLabel,jdbcType=VARCHAR},
+		#{reword,jdbcType=INTEGER}, #{question,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="cn.bewweb.entities.Question">
+		insert into touch_question
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="questionId != null">
+				question_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="questionLabel != null">
+				question_label,
+			</if>
+			<if test="reword != null">
+				reword,
+			</if>
+			<if test="question != null">
+				question,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="questionId != null">
+				#{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="questionLabel != null">
+				#{questionLabel,jdbcType=VARCHAR},
+			</if>
+			<if test="reword != null">
+				#{reword,jdbcType=INTEGER},
+			</if>
+			<if test="question != null">
+				#{question,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.bewweb.entities.Question">
+		update touch_question
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="questionLabel != null">
+				question_label = #{questionLabel,jdbcType=VARCHAR},
+			</if>
+			<if test="reword != null">
+				reword = #{reword,jdbcType=INTEGER},
+			</if>
+			<if test="question != null">
+				question = #{question,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where question_id = #{questionId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.bewweb.entities.Question">
+		update
+		touch_question
+		set user_id = #{userId,jdbcType=BIGINT},
+		title =
+		#{title,jdbcType=VARCHAR},
+		question_label =
+		#{questionLabel,jdbcType=VARCHAR},
+		reword = #{reword,jdbcType=INTEGER},
+		question = #{question,jdbcType=LONGVARCHAR}
+		where question_id =
+		#{questionId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.bewweb.entities.Question">
+		update
+		touch_question
+		set user_id = #{userId,jdbcType=BIGINT},
+		title =
+		#{title,jdbcType=VARCHAR},
+		question_label =
+		#{questionLabel,jdbcType=VARCHAR},
+		reword = #{reword,jdbcType=INTEGER}
+		where question_id = #{questionId,jdbcType=BIGINT}
+	</update>
+</mapper>

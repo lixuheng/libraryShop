@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bewweb.dao.AbnormalMapper">
+	<resultMap id="BaseResultMap" type="cn.bewweb.entities.Abnormal">
+		<id column="abnormal_id" property="abnormalId" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="io_exception" property="ioException" jdbcType="VARCHAR" />
+		<result column="sql_exception" property="sqlException"
+			jdbcType="VARCHAR" />
+		<result column="null_pointer_exception" property="nullPointerException"
+			jdbcType="VARCHAR" />
+		<result column="class_cast_exception" property="classCastException"
+			jdbcType="VARCHAR" />
+		<result column="clone_exception" property="cloneException"
+			jdbcType="VARCHAR" />
+		<result column="parse_exception" property="parseException"
+			jdbcType="VARCHAR" />
+		<result column="other_exception" property="otherException"
+			jdbcType="VARCHAR" />
+		<result column="exception_datetime" property="exceptionDatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="receive_report_datetime" property="receiveReportDatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="note" property="note" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="cn.bewweb.entities.Abnormal"
+		extends="BaseResultMap">
+		<result column="receive_repoft" property="receiveRepoft"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		abnormal_id, user_id, io_exception, sql_exception, null_pointer_exception,
+		class_cast_exception,
+		clone_exception, parse_exception, other_exception, exception_datetime,
+		receive_report_datetime,
+		note
+	</sql>
+	<sql id="Blob_Column_List">
+		receive_repoft
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from control_abnormal
+		where abnormal_id = #{abnormalId,jdbcType=BIGINT}
+	</select>
+
+
+	<select id="find" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from control_abnormal
+		<where>
+			<if test="param1 !=null and param1.abnormalId != null">
+				abnormal_id = #{param1.abnormalId}
+			</if>
+			<if test="param1 !=null and param1.userId != null">
+				and user_id = #{param1.userId}
+			</if>
+			<if test="param1 !=null and param1.ioException != null">
+				and io_exception like '%${param1.ioException}%'
+			</if>
+			<if test="param1 !=null and param1.sqlException != null">
+				and sql_exception like '%${param1.sqlException}%'
+			</if>
+			<if test="param1 !=null and param1.nullPointerException != null">
+				and null_pointer_exception like '%${param1.nullPointerException}%'
+			</if>
+			<if test="param1 !=null and param1.classCastException != null">
+				and class_cast_exception like '%${param1.classCastException}%'
+			</if>
+			<if test="param1 !=null and param1.cloneException != null">
+				and clone_exception like '%${param1.cloneException}%'
+			</if>
+			<if test="param1 !=null and param1.parseException != null">
+				and parse_exception like '%${param1.parseException}%'
+			</if>
+			<if test="param1 !=null and param1.otherException != null">
+				and other_exception like '%${param1.otherException}%'
+			</if>
+			<if test="param1 !=null and param1.exceptionDatetime != null">
+				and exception_datetime = #{param1.exceptionDatetime}
+			</if>
+			<if test="param1 !=null and param1.receiveReportDatetime != null">
+				and receive_report_datetime = #{param1.receiveReportDatetime}
+			</if>
+			<if test="param1 !=null and param1.note != null">
+				and note like '%${param1.note}%'
+			</if>
+			<if test="param1 !=null and param1.receiveRepoft != null">
+				and receive_repoft like '%${param1.receiveRepoft}%'
+			</if>
+		</where>
+		limit #{1},#{2}
+	</select>
+
+
+	<select id="findAndeOrderBy" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from control_abnormal
+		<where>
+			<if test="param1 !=null and param1.abnormalId != null">
+				abnormal_id = #{param1.abnormalId}
+			</if>
+			<if test="param1 !=null and param1.userId != null">
+				and user_id = #{param1.userId}
+			</if>
+			<if test="param1 !=null and param1.ioException != null">
+				and io_exception like '%${param1.ioException}%'
+			</if>
+			<if test="param1 !=null and param1.sqlException != null">
+				and sql_exception like '%${param1.sqlException}%'
+			</if>
+			<if test="param1 !=null and param1.nullPointerException != null">
+				and null_pointer_exception like '%${param1.nullPointerException}%'
+			</if>
+			<if test="param1 !=null and param1.classCastException != null">
+				and class_cast_exception like '%${param1.classCastException}%'
+			</if>
+			<if test="param1 !=null and param1.cloneException != null">
+				and clone_exception like '%${param1.cloneException}%'
+			</if>
+			<if test="param1 !=null and param1.parseException != null">
+				and parse_exception like '%${param1.parseException}%'
+			</if>
+			<if test="param1 !=null and param1.otherException != null">
+				and other_exception like '%${param1.otherException}%'
+			</if>
+			<if test="param1 !=null and param1.exceptionDatetime != null">
+				and exception_datetime = #{param1.exceptionDatetime}
+			</if>
+			<if test="param1 !=null and param1.receiveReportDatetime != null">
+				and receive_report_datetime = #{param1.receiveReportDatetime}
+			</if>
+			<if test="param1 !=null and param1.note != null">
+				and note like '%${param1.note}%'
+			</if>
+			<if test="param1 !=null and param1.receiveRepoft != null">
+				and receive_repoft like '%${param1.receiveRepoft}%'
+			</if>
+		</where>
+		order by #{1}
+		limit #{2},#{3}
+	</select>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from control_abnormal
+		where abnormal_id = #{abnormalId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="cn.bewweb.entities.Abnormal">
+		insert into control_abnormal (abnormal_id, user_id, io_exception,
+		sql_exception, null_pointer_exception, class_cast_exception,
+		clone_exception, parse_exception, other_exception,
+		exception_datetime, receive_report_datetime,
+		note, receive_repoft)
+		values (#{abnormalId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+		#{ioException,jdbcType=VARCHAR},
+		#{sqlException,jdbcType=VARCHAR}, #{nullPointerException,jdbcType=VARCHAR},
+		#{classCastException,jdbcType=VARCHAR},
+		#{cloneException,jdbcType=VARCHAR},
+		#{parseException,jdbcType=VARCHAR},
+		#{otherException,jdbcType=VARCHAR},
+		#{exceptionDatetime,jdbcType=TIMESTAMP},
+		#{receiveReportDatetime,jdbcType=TIMESTAMP},
+		#{note,jdbcType=VARCHAR}, #{receiveRepoft,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.bewweb.entities.Abnormal">
+		insert into control_abnormal
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="abnormalId != null">
+				abnormal_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="ioException != null">
+				io_exception,
+			</if>
+			<if test="sqlException != null">
+				sql_exception,
+			</if>
+			<if test="nullPointerException != null">
+				null_pointer_exception,
+			</if>
+			<if test="classCastException != null">
+				class_cast_exception,
+			</if>
+			<if test="cloneException != null">
+				clone_exception,
+			</if>
+			<if test="parseException != null">
+				parse_exception,
+			</if>
+			<if test="otherException != null">
+				other_exception,
+			</if>
+			<if test="exceptionDatetime != null">
+				exception_datetime,
+			</if>
+			<if test="receiveReportDatetime != null">
+				receive_report_datetime,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="receiveRepoft != null">
+				receive_repoft,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="abnormalId != null">
+				#{abnormalId,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="ioException != null">
+				#{ioException,jdbcType=VARCHAR},
+			</if>
+			<if test="sqlException != null">
+				#{sqlException,jdbcType=VARCHAR},
+			</if>
+			<if test="nullPointerException != null">
+				#{nullPointerException,jdbcType=VARCHAR},
+			</if>
+			<if test="classCastException != null">
+				#{classCastException,jdbcType=VARCHAR},
+			</if>
+			<if test="cloneException != null">
+				#{cloneException,jdbcType=VARCHAR},
+			</if>
+			<if test="parseException != null">
+				#{parseException,jdbcType=VARCHAR},
+			</if>
+			<if test="otherException != null">
+				#{otherException,jdbcType=VARCHAR},
+			</if>
+			<if test="exceptionDatetime != null">
+				#{exceptionDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiveReportDatetime != null">
+				#{receiveReportDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveRepoft != null">
+				#{receiveRepoft,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.bewweb.entities.Abnormal">
+		update control_abnormal
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="ioException != null">
+				io_exception = #{ioException,jdbcType=VARCHAR},
+			</if>
+			<if test="sqlException != null">
+				sql_exception = #{sqlException,jdbcType=VARCHAR},
+			</if>
+			<if test="nullPointerException != null">
+				null_pointer_exception = #{nullPointerException,jdbcType=VARCHAR},
+			</if>
+			<if test="classCastException != null">
+				class_cast_exception = #{classCastException,jdbcType=VARCHAR},
+			</if>
+			<if test="cloneException != null">
+				clone_exception = #{cloneException,jdbcType=VARCHAR},
+			</if>
+			<if test="parseException != null">
+				parse_exception = #{parseException,jdbcType=VARCHAR},
+			</if>
+			<if test="otherException != null">
+				other_exception = #{otherException,jdbcType=VARCHAR},
+			</if>
+			<if test="exceptionDatetime != null">
+				exception_datetime = #{exceptionDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiveReportDatetime != null">
+				receive_report_datetime = #{receiveReportDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="note != null">
+				note = #{note,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveRepoft != null">
+				receive_repoft = #{receiveRepoft,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where abnormal_id = #{abnormalId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.bewweb.entities.Abnormal">
+		update control_abnormal
+		set user_id = #{userId,jdbcType=BIGINT},
+		io_exception = #{ioException,jdbcType=VARCHAR},
+		sql_exception = #{sqlException,jdbcType=VARCHAR},
+		null_pointer_exception = #{nullPointerException,jdbcType=VARCHAR},
+		class_cast_exception = #{classCastException,jdbcType=VARCHAR},
+		clone_exception = #{cloneException,jdbcType=VARCHAR},
+		parse_exception = #{parseException,jdbcType=VARCHAR},
+		other_exception = #{otherException,jdbcType=VARCHAR},
+		exception_datetime = #{exceptionDatetime,jdbcType=TIMESTAMP},
+		receive_report_datetime = #{receiveReportDatetime,jdbcType=TIMESTAMP},
+		note = #{note,jdbcType=VARCHAR},
+		receive_repoft = #{receiveRepoft,jdbcType=LONGVARCHAR}
+		where abnormal_id = #{abnormalId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.bewweb.entities.Abnormal">
+		update control_abnormal
+		set user_id = #{userId,jdbcType=BIGINT},
+		io_exception = #{ioException,jdbcType=VARCHAR},
+		sql_exception = #{sqlException,jdbcType=VARCHAR},
+		null_pointer_exception = #{nullPointerException,jdbcType=VARCHAR},
+		class_cast_exception = #{classCastException,jdbcType=VARCHAR},
+		clone_exception = #{cloneException,jdbcType=VARCHAR},
+		parse_exception = #{parseException,jdbcType=VARCHAR},
+		other_exception = #{otherException,jdbcType=VARCHAR},
+		exception_datetime = #{exceptionDatetime,jdbcType=TIMESTAMP},
+		receive_report_datetime = #{receiveReportDatetime,jdbcType=TIMESTAMP},
+		note = #{note,jdbcType=VARCHAR}
+		where abnormal_id = #{abnormalId,jdbcType=BIGINT}
+	</update>
+</mapper>

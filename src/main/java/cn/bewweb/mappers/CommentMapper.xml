@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bewweb.dao.CommentMapper">
+	<resultMap id="BaseResultMap" type="cn.bewweb.entities.Comment">
+		<id column="comment_id" property="commentId" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
+		<result column="share_id" property="shareId" jdbcType="BIGINT" />
+		<result column="tou_comment_id" property="touCommentId"
+			jdbcType="BIGINT" />
+		<result column="orderIterm_id" property="orderitermId"
+			jdbcType="BIGINT" />
+		<result column="comment_datetime" property="commentDatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="state" property="state" jdbcType="CHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="cn.bewweb.entities.Comment"
+		extends="BaseResultMap">
+		<result column="comment" property="comment" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		comment_id, user_id, question_id, share_id, tou_comment_id, orderIterm_id,
+		comment_datetime,
+		state
+	</sql>
+	<sql id="Blob_Column_List">
+		comment
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_comment
+		where comment_id = #{commentId,jdbcType=BIGINT}
+	</select>
+
+	<select id="find" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_comment
+		<where>
+			<if test="param1 !=null and param1.commentId != null">
+				comment_id = #{param1.commentId}
+			</if>
+			<if test="param1 !=null and param1.userId != null">
+				and user_id = #{param1.userId}
+			</if>
+			<if test="param1 !=null and param1.questionId != null">
+				and question_id = #{param1.questionId}
+			</if>
+			<if test="param1 !=null and param1.shareId != null">
+				and share_id = #{param1.shareId}
+			</if>
+			<if test="param1 !=null and param1.touCommentId != null">
+				and tou_comment_id = #{param1.touCommentId}
+			</if>
+			<if test="param1 !=null and param1.orderitermId != null">
+				and orderIterm_id = #{param1.orderitermId}
+			</if>
+			<if test="param1 !=null and param1.commentDatetime != null">
+				and comment_datetime = #{param1.commentDatetime}
+			</if>
+			<if test="param1 !=null and param1.state != null">
+				and state = #{param1.state}
+			</if>
+			<if test="param1 !=null and param1.comment != null">
+				and comment like '%${param1.comment}%'
+			</if>
+		</where>
+		limit #{1},#{2} 
+	</select>
+	
+	
+	<select id="findAndeOrderBy" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from touch_comment
+		<where>
+			<if test="param1 !=null and param1.commentId != null">
+				comment_id = #{param1.commentId}
+			</if>
+			<if test="param1 !=null and param1.userId != null">
+				and user_id = #{param1.userId}
+			</if>
+			<if test="param1 !=null and param1.questionId != null">
+				and question_id = #{param1.questionId}
+			</if>
+			<if test="param1 !=null and param1.shareId != null">
+				and share_id = #{param1.shareId}
+			</if>
+			<if test="param1 !=null and param1.touCommentId != null">
+				and tou_comment_id = #{param1.touCommentId}
+			</if>
+			<if test="param1 !=null and param1.orderitermId != null">
+				and orderIterm_id = #{param1.orderitermId}
+			</if>
+			<if test="param1 !=null and param1.commentDatetime != null">
+				and comment_datetime = #{param1.commentDatetime}
+			</if>
+			<if test="param1 !=null and param1.state != null">
+				and state = #{param1.state}
+			</if>
+			<if test="param1 !=null and param1.comment != null">
+				and comment like '%${param1.comment}%'
+			</if>
+		</where>
+		order by #{1} 
+		limit #{2},#{3} 
+	</select>
+	
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from touch_comment
+		where comment_id = #{commentId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="cn.bewweb.entities.Comment">
+		insert into touch_comment (comment_id, user_id, question_id,
+		share_id, tou_comment_id, orderIterm_id,
+		comment_datetime, state, comment
+		)
+		values (#{commentId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+		#{questionId,jdbcType=BIGINT},
+		#{shareId,jdbcType=BIGINT}, #{touCommentId,jdbcType=BIGINT}, #{orderitermId,jdbcType=BIGINT},
+		#{commentDatetime,jdbcType=TIMESTAMP}, #{state,jdbcType=CHAR},
+		#{comment,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="cn.bewweb.entities.Comment">
+		insert into touch_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="commentId != null">
+				comment_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="questionId != null">
+				question_id,
+			</if>
+			<if test="shareId != null">
+				share_id,
+			</if>
+			<if test="touCommentId != null">
+				tou_comment_id,
+			</if>
+			<if test="orderitermId != null">
+				orderIterm_id,
+			</if>
+			<if test="commentDatetime != null">
+				comment_datetime,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="comment != null">
+				comment,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="commentId != null">
+				#{commentId,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="questionId != null">
+				#{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="shareId != null">
+				#{shareId,jdbcType=BIGINT},
+			</if>
+			<if test="touCommentId != null">
+				#{touCommentId,jdbcType=BIGINT},
+			</if>
+			<if test="orderitermId != null">
+				#{orderitermId,jdbcType=BIGINT},
+			</if>
+			<if test="commentDatetime != null">
+				#{commentDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR},
+			</if>
+			<if test="comment != null">
+				#{comment,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.bewweb.entities.Comment">
+		update touch_comment
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="questionId != null">
+				question_id = #{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="shareId != null">
+				share_id = #{shareId,jdbcType=BIGINT},
+			</if>
+			<if test="touCommentId != null">
+				tou_comment_id = #{touCommentId,jdbcType=BIGINT},
+			</if>
+			<if test="orderitermId != null">
+				orderIterm_id = #{orderitermId,jdbcType=BIGINT},
+			</if>
+			<if test="commentDatetime != null">
+				comment_datetime = #{commentDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=CHAR},
+			</if>
+			<if test="comment != null">
+				comment = #{comment,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where comment_id = #{commentId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.bewweb.entities.Comment">
+		update touch_comment
+		set user_id = #{userId,jdbcType=BIGINT},
+		question_id = #{questionId,jdbcType=BIGINT},
+		share_id = #{shareId,jdbcType=BIGINT},
+		tou_comment_id = #{touCommentId,jdbcType=BIGINT},
+		orderIterm_id = #{orderitermId,jdbcType=BIGINT},
+		comment_datetime = #{commentDatetime,jdbcType=TIMESTAMP},
+		state = #{state,jdbcType=CHAR},
+		comment = #{comment,jdbcType=LONGVARCHAR}
+		where comment_id = #{commentId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.bewweb.entities.Comment">
+		update touch_comment
+		set user_id = #{userId,jdbcType=BIGINT},
+		question_id = #{questionId,jdbcType=BIGINT},
+		share_id = #{shareId,jdbcType=BIGINT},
+		tou_comment_id = #{touCommentId,jdbcType=BIGINT},
+		orderIterm_id = #{orderitermId,jdbcType=BIGINT},
+		comment_datetime = #{commentDatetime,jdbcType=TIMESTAMP},
+		state = #{state,jdbcType=CHAR}
+		where comment_id = #{commentId,jdbcType=BIGINT}
+	</update>
+</mapper>
